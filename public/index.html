@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Digital Habit Garden — A gamified habit tracker where your habits grow plants. Water daily, earn streaks, unlock achievements.">
+  <title>Digital Habit Garden 🌱</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ====== Particle Canvas (background effect) ====== -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- ====== Header ====== -->
+  <header class="header">
+    <div class="header-left">
+      <h1 class="logo">
+        <span class="logo-icon">🌱</span>
+        <span class="logo-text">Habit Garden</span>
+      </h1>
+      <p class="tagline">Grow your habits, bloom your life</p>
+    </div>
+    <div class="header-stats">
+      <div class="stat-pill" id="stat-health">
+        <span class="stat-icon">💚</span>
+        <span class="stat-label">Health</span>
+        <span class="stat-value" id="health-value">100%</span>
+      </div>
+      <div class="stat-pill" id="stat-streak">
+        <span class="stat-icon">🔥</span>
+        <span class="stat-label">Best Streak</span>
+        <span class="stat-value" id="streak-value">0</span>
+      </div>
+      <div class="stat-pill" id="stat-watered">
+        <span class="stat-icon">💧</span>
+        <span class="stat-label">Watered</span>
+        <span class="stat-value" id="watered-value">0/0</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== Main Layout ====== -->
+  <main class="main-layout">
+
+    <!-- ====== Garden Section ====== -->
+    <section class="garden-section">
+      <div class="section-header">
+        <h2>🏡 Your Garden</h2>
+        <button class="btn btn-primary btn-add-habit" id="btn-add-habit">
+          <span class="btn-icon">+</span>
+          <span>Plant a Seed</span>
+        </button>
+      </div>
+
+      <!-- Recommendations Banner -->
+      <div class="recommendations-banner" id="recommendations-banner" style="display: none;">
+        <div class="rec-icon">💡</div>
+        <div class="rec-text" id="rec-text"></div>
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-garden" id="empty-garden">
+        <div class="empty-illustration">🌾</div>
+        <h3>Your garden is empty</h3>
+        <p>Plant your first habit seed and watch it grow!</p>
+        <button class="btn btn-primary" id="btn-empty-add">🌱 Plant First Seed</button>
+      </div>
+
+      <!-- Habit Cards Grid -->
+      <div class="garden-grid" id="garden-grid"></div>
+    </section>
+
+    <!-- ====== Sidebar ====== -->
+    <aside class="sidebar">
+      <!-- Garden Stats Card -->
+      <div class="sidebar-card stats-card">
+        <h3>📊 Garden Stats</h3>
+        <div class="stats-grid">
+          <div class="mini-stat">
+            <div class="mini-stat-value" id="total-habits">0</div>
+            <div class="mini-stat-label">Plants</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-value" id="total-waters">0</div>
+            <div class="mini-stat-label">Total Waters</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-value" id="garden-age">0</div>
+            <div class="mini-stat-label">Days Old</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-value" id="achievements-count">0</div>
+            <div class="mini-stat-label">Badges</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievements Card -->
+      <div class="sidebar-card achievements-card">
+        <h3>🏅 Achievements</h3>
+        <div class="achievements-list" id="achievements-list">
+          <p class="achievements-empty">Complete habits to unlock badges!</p>
+        </div>
+      </div>
+
+      <!-- Growth Guide Card -->
+      <div class="sidebar-card guide-card">
+        <h3>📖 Growth Guide</h3>
+        <div class="growth-stages-guide">
+          <div class="guide-stage"><span class="guide-emoji">🟤</span><span>Seed</span><span class="guide-days">Day 0–2</span></div>
+          <div class="guide-stage"><span class="guide-emoji">🌱</span><span>Sprout</span><span class="guide-days">Day 3–6</span></div>
+          <div class="guide-stage"><span class="guide-emoji">🌿</span><span>Sapling</span><span class="guide-days">Day 7–13</span></div>
+          <div class="guide-stage"><span class="guide-emoji">🌳</span><span>Bloom</span><span class="guide-days">Day 14–20</span></div>
+          <div class="guide-stage"><span class="guide-emoji">🌸</span><span>Flower</span><span class="guide-days">Day 21+</span></div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ====== Add Habit Modal ====== -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="add-habit-modal">
+      <div class="modal-header">
+        <h2>🌱 Plant a New Seed</h2>
+        <button class="modal-close" id="modal-close">&times;</button>
+      </div>
+      <form id="habit-form">
+        <div class="form-group">
+          <label for="habit-name">Habit Name</label>
+          <input type="text" id="habit-name" placeholder="e.g., Read 30 minutes, Exercise, Meditate..." maxlength="40" required autocomplete="off">
+          <span class="char-count"><span id="char-count">0</span>/40</span>
+        </div>
+        <div class="form-group">
+          <label>Choose an Icon</label>
+          <div class="icon-picker" id="icon-picker">
+            <button type="button" class="icon-btn selected" data-icon="🌱">🌱</button>
+            <button type="button" class="icon-btn" data-icon="📚">📚</button>
+            <button type="button" class="icon-btn" data-icon="🏋️">🏋️</button>
+            <button type="button" class="icon-btn" data-icon="🧘">🧘</button>
+            <button type="button" class="icon-btn" data-icon="💻">💻</button>
+            <button type="button" class="icon-btn" data-icon="🎨">🎨</button>
+            <button type="button" class="icon-btn" data-icon="🎵">🎵</button>
+            <button type="button" class="icon-btn" data-icon="✍️">✍️</button>
+            <button type="button" class="icon-btn" data-icon="🥗">🥗</button>
+            <button type="button" class="icon-btn" data-icon="😴">😴</button>
+            <button type="button" class="icon-btn" data-icon="🚶">🚶</button>
+            <button type="button" class="icon-btn" data-icon="💊">💊</button>
+            <button type="button" class="icon-btn" data-icon="🧹">🧹</button>
+            <button type="button" class="icon-btn" data-icon="🌊">🌊</button>
+            <button type="button" class="icon-btn" data-icon="☀️">☀️</button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-submit">
+          <span>🌱 Plant Seed</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====== Toast Container ====== -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ====== Delete Confirmation Modal ====== -->
+  <div class="modal-overlay" id="delete-modal-overlay">
+    <div class="modal delete-modal">
+      <div class="modal-header">
+        <h2>🗑️ Remove Plant</h2>
+        <button class="modal-close" id="delete-modal-close">&times;</button>
+      </div>
+      <p class="delete-message">Are you sure you want to remove <strong id="delete-habit-name"></strong> from your garden? This cannot be undone.</p>
+      <div class="delete-actions">
+        <button class="btn btn-secondary" id="delete-cancel">Cancel</button>
+        <button class="btn btn-danger" id="delete-confirm">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "digital-habit-garden",
+  "version": "1.0.0",
+  "description": "A gamified habit tracker where habits grow plants visually over time. Water your habits daily, watch them bloom, and earn achievements.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["habit-tracker", "gamification", "nodejs", "express", "fullstack"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "uuid": "^9.0.0"
+  }
+}

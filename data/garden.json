@@ -1,0 +1,49 @@
+{
+  "habits": [
+    {
+      "id": "87ea22c1-fbcc-4d33-bd7e-0f0b15ba22ab",
+      "name": "Read 30 min",
+      "icon": "🥗",
+      "plantType": "rose",
+      "streak": 1,
+      "bestStreak": 1,
+      "totalWaters": 1,
+      "wateredToday": true,
+      "lastWatered": "2026-03-17T04:44:12.429Z",
+      "createdAt": "2026-03-17T04:43:27.583Z"
+    },
+    {
+      "id": "136a5278-b6cf-4d63-88e5-06ea4dd5c3a6",
+      "name": "Learn coding",
+      "icon": "🎵",
+      "plantType": "sunflower",
+      "streak": 1,
+      "bestStreak": 1,
+      "totalWaters": 1,
+      "wateredToday": true,
+      "lastWatered": "2026-03-17T04:45:54.402Z",
+      "createdAt": "2026-03-17T04:45:52.003Z"
+    }
+  ],
+  "achievements": [
+    {
+      "id": "first_seed",
+      "name": "🌱 First Seed",
+      "desc": "Plant your first habit",
+      "unlockedAt": "2026-03-17T04:43:27.584Z"
+    },
+    {
+      "id": "first_water",
+      "name": "💧 First Drop",
+      "desc": "Water a habit for the first time",
+      "unlockedAt": "2026-03-17T04:44:12.436Z"
+    },
+    {
+      "id": "all_watered",
+      "name": "🌈 Perfect Day",
+      "desc": "Water all habits in a single day",
+      "unlockedAt": "2026-03-17T04:44:12.436Z"
+    }
+  ],
+  "gardenCreated": "2026-03-17T00:00:00Z"
+}
