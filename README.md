@@ -134,8 +134,8 @@ digital-habit-garden/
 
 ## 📸 Screenshots
 
-<img width="424" height="458" alt="Screenshot 2026-03-17 205044" src="https://github.com/user-attachments/assets/8cbd2523-1e78-48d8-9b1b-7e6194fd7938" />
 <img width="1889" height="877" alt="Screenshot 2026-03-17 205033" src="https://github.com/user-attachments/assets/ce998011-a95e-4722-b75a-1498d5cc05fe" />
+<img width="424" height="458" alt="Screenshot 2026-03-17 205044" src="https://github.com/user-attachments/assets/8cbd2523-1e78-48d8-9b1b-7e6194fd7938" />
 
 
 ---
